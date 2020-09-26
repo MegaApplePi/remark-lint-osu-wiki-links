@@ -15,7 +15,9 @@ function osuWikiLinks(tree, file) {
 
         let uriMatch = node.url.match(urlRegex);
 
-        file.message('Wiki links must not include the file name.', node);
+        if (uriMatch) {
+          file.message('Wiki links must not include the file name.', node);
+        }
     }
 }
 
