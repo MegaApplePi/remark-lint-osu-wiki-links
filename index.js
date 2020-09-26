@@ -4,7 +4,12 @@ let rule = require('unified-lint-rule');
 let generated = require('unist-util-generated');
 let visit = require('unist-util-visit');
 
-let urlRegex = /^https?:\/\/(?:osu|new)\.ppy\.sh\/wiki\/(.+?)\/.+?\.md\/?$/;
+let urlRegex = /^(https?:\/\/(?:osu|new)\.ppy\.sh)?\/wiki\/.+?\/.+?\.md\/?$/;
+let warnings = [
+  [/^https?:\/\/(?:osu|new)\.ppy\.sh\/wiki\/.+?\/?$/, 'Wiki links must use /wiki/{article-name}}, not the full URL.'],
+  [/^\/wiki\/.+?\/.+?\.md\/?$/, 'Wiki links must not include the file name.']
+  [/^\/wiki\/.+?\/$/, 'Wiki links must not have a trailing slash.']
+]
 
 function osuWikiLinks(tree, file) {
     visit(tree, 'link', visitor);
@@ -15,9 +20,11 @@ function osuWikiLinks(tree, file) {
 
         let uriMatch = node.url.match(urlRegex);
 
-        if (uriMatch) {
-          file.message('Wiki links must not include the file name.', node);
-        }
+        if (uriMatch !== null)
+            uriWarnings.forEach(function ([uriRegex, warning]) {
+                if (uriRegex.test(uriMatch[1]))
+                    file.message(warning, node);
+            });
     }
 }
 
