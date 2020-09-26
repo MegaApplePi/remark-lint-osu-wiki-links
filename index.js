@@ -5,7 +5,7 @@ let generated = require('unist-util-generated');
 let visit = require('unist-util-visit');
 
 let urlRegex = /^(https?:\/\/(?:osu|new)\.ppy\.sh)?\/wiki\/.+?\/.+?\.md\/?$/;
-let warnings = [
+let uriWarnings = [
   [/^https?:\/\/(?:osu|new)\.ppy\.sh\/wiki\/.+?\/?$/, 'Wiki links must use /wiki/{article-name}}, not the full URL.'],
   [/^\/wiki\/.+?\/.+?\.md\/?$/, 'Wiki links must not include the file name.']
   [/^\/wiki\/.+?\/$/, 'Wiki links must not have a trailing slash.']
