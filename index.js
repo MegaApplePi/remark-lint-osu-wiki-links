@@ -4,10 +4,10 @@ const rule = require('unified-lint-rule');
 const generated = require('unist-util-generated');
 const visit = require('unist-util-visit');
 
-const wikiUrlRegex = /^(https?:\/\/(?:osu|new)\.ppy\.sh)?\/wiki\/(.+)\/?$/;
+const wikiUrlRegex = /^(https?:\/\/(?:osu|new)\.ppy\.sh)?\/wiki\/(.+)/;
 const wikiUriWarnings = [
-    [/^.+?\.md$/, 'Wiki links must not include the file name.'],
-    [/\/#.*$/, 'Wiki section links must not have a slash before the "#".'],
+    [/\.md$/, 'Wiki links must not include the file name.'],
+    [/\/#.*/, 'Wiki section links must not have a slash before the "#".'],
     [/\/$/, 'Wiki links must not have a trailing slash.'],
 ];
 
