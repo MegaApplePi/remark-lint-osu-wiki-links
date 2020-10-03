@@ -4,8 +4,7 @@ const rule = require('unified-lint-rule');
 const generated = require('unist-util-generated');
 const visit = require('unist-util-visit');
 
-const fullUrlRegex = /^https?:\/\/(?:osu|new)\.ppy\.sh\/wiki\/(.+?)\/?$/;
-const wikiUrlRegex = /^\/wiki\/(.+)\/?$/;
+const wikiUrlRegex = /^(https?:\/\/(?:osu|new)\.ppy\.sh)?\/wiki\/(.+)\/?$/;
 const wikiUriWarnings = [
     [/^.+?\.md$/, 'Wiki links must not include the file name.'],
     [/\/#.*$/, 'Wiki section links must not have a slash before the "#".'],
@@ -19,17 +18,18 @@ function osuWikiLinks(tree, file) {
         if (generated(node))
             return;
 
-        const fullUriMatch = node.url.match(fullUrlRegex);
-        if (fullUriMatch !== null) {
-            file.message("Wiki links must use /wiki/{article-name}, not the full URL.", node);
-        }
-
         const wikiUriMatch = node.url.match(wikiUrlRegex);
-        if (wikiUriMatch !== null)
-            wikiUriWarnings.forEach(function ([wikiUrlRegex, warning]) {
-                if (wikiUrlRegex.test(wikiUriMatch[1]))
-                    file.message(warning, node);
-            });
+
+        if (wikiUriMatch === null)
+            return;
+
+        if (wikiUriMatch[1] !== null)
+            file.message('Wiki links must use /wiki/{article-name}, not the full URL.', node);
+
+        wikiUriWarnings.forEach(function ([wikiUriRegex, warning]) {
+            if (wikiUriRegex.test(wikiUriMatch[2]))
+                file.message(warning, node);
+        });
     }
 }
 
