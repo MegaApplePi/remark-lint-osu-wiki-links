@@ -7,9 +7,9 @@ let visit = require('unist-util-visit');
 let fullUrlRegex = /^https?:\/\/(?:osu|new)\.ppy\.sh\/wiki\/(.+?)\/?$/;
 let wikiUrlRegex = /^\/wiki\/(.+)\/?$/;
 let wikiUriWarnings = [
-  [/^.+?\.md$/, 'Wiki links must not include the file name.'],
-  [/\/#.*$/, 'Wiki section links must not have a slash before the "#".'],
-  [/\/$/, 'Wiki links must not have a trailing slash.']
+    [/^.+?\.md$/, 'Wiki links must not include the file name.'],
+    [/\/#.*$/, 'Wiki section links must not have a slash before the "#".'],
+    [/\/$/, 'Wiki links must not have a trailing slash.']
 ]
 
 function osuWikiLinks(tree, file) {
@@ -21,7 +21,7 @@ function osuWikiLinks(tree, file) {
 
         let fullUriMatch = node.url.match(fullUrlRegex);
         if (fullUriMatch !== null) {
-          file.message("Wiki links must use /wiki/{article-name}, not the full URL.", node);
+            file.message("Wiki links must use /wiki/{article-name}, not the full URL.", node);
         }
 
         let wikiUriMatch = node.url.match(wikiUrlRegex);
