@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const rule = require('unified-lint-rule');
 const generated = require('unist-util-generated');
