@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "remark-lint-osu-links",
-  "version": "1.0.1",
+  "name": "remark-lint-osu-wiki-links",
+  "version": "1.0.0",
   "dependencies": {
     "unified-lint-rule": "^1.0.5",
     "unist-util-generated": "^1.1.5",
