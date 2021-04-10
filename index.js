@@ -18,6 +18,9 @@ function osuWikiLinks(tree, file) {
         if (generated(node))
             return;
 
+        if (node.url.match(/^\/(?!wiki\/)/) != null)
+            file.message('Links without a hostname must start with "/wiki/"', node);
+
         const wikiUriMatch = node.url.match(wikiUrlRegex);
 
         if (wikiUriMatch === null)
